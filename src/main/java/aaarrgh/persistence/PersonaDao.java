@@ -14,6 +14,8 @@ public interface PersonaDao {
     
     public Persona findById(Integer idPersona) throws PersistenceException;
     
+    public Persona authenticate(String username, String password) throws PersistenceException;
+    
     public List<Persona> findAll() throws PersistenceException;
     
 }

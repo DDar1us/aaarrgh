@@ -5,5 +5,5 @@ public class DaoFactory {
 	public static PersonaDao getPersonaDao(){
 		return PersonaDaoJdbcImpl.getInstance();
 	}
-
+	
 }

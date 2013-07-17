@@ -25,13 +25,14 @@ public class PersonaDaoJdbcImpl implements PersonaDao {
 
 		try {
 			tx.begin();
-			String query = "insert into persona (id, nombre, apellido, edad) values (?, ?, ?, ?)";
+			String query = "insert into persona (id, nombre, apellido, edad, password) values (?, ?, ?, ?, ?)";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
 			statement.setInt(1, persona.getId());
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getApellido());
 			statement.setInt(4, persona.getEdad());
+			statement.setString(5, persona.getPassword());
 
 			statement.executeUpdate();
 
@@ -116,7 +117,7 @@ public class PersonaDaoJdbcImpl implements PersonaDao {
 		Persona persona = null;
 		try {
 			Connection c = ConnectionProvider.getInstance().getConnection();
-			String query = "select * from persona where id = ?";
+			String query = "select id, nombre, apellido, edad, password from persona where id = ?";
 			PreparedStatement statement = c.prepareStatement(query);
 			statement.setInt(1, idPersona);
 			ResultSet resultSet = statement.executeQuery();
@@ -136,8 +137,39 @@ public class PersonaDaoJdbcImpl implements PersonaDao {
 		retorno.setNombre(resultSet.getString("nombre"));
 		retorno.setApellido(resultSet.getString("apellido"));
 		retorno.setEdad(resultSet.getInt("edad"));
+		retorno.setPassword(resultSet.getString("password"));
+		
 
 		return retorno;
+	}
+	
+	public Persona authenticate(String username, String password) throws PersistenceException {
+		
+		if (username == null && password == null) {
+			throw new IllegalArgumentException(
+					"El nombre y el password no deben ser nulos");
+		}
+		
+		Persona persona = null;
+		
+		try {
+			Connection c = ConnectionProvider.getInstance().getConnection();
+			String query = "select * from persona where nombre= ? and password= ?";
+			PreparedStatement statement = c.prepareStatement(query);
+			statement.setString(1, username);
+			statement.setString(2, password);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				
+				persona = convertOne(resultSet);
+				
+				}
+			c.close();
+		}catch (SQLException sqlException) {
+				throw new PersistenceException(sqlException);
+		}
+		return persona;
+		
 	}
 
 }

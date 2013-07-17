@@ -6,6 +6,7 @@ public class Persona {
 	private String nombre;
 	private String apellido;
 	private Integer edad;
+	private String password;
 
 	public Persona() {
 		super();
@@ -38,5 +39,13 @@ public class Persona {
 	}
 	public void setEdad(Integer edad) {
 		this.edad = edad;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

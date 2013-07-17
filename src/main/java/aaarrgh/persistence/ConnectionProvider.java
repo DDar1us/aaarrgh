@@ -9,7 +9,7 @@ public class ConnectionProvider {
 	private static ConnectionProvider instance;
 	private static Connection connection = null;
 
-	private String url = "jdbc:sqlite:aaarrgh.db";
+	private String url = "jdbc:sqlite:C:/java/workspace/aaarrgh/aaarrgh.db";
 
 	private ConnectionProvider() throws PersistenceException {
 		try {

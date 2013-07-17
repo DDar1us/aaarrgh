@@ -16,4 +16,18 @@ public class PersonaTests {
 		
 	}
 	
+	@Test
+	public void testPasswordUsuario() {
+		Persona person = new Persona();
+		person.setPassword("sparrow");
+		person.setNombre("jack");
+		
+		Assert.assertEquals("el password del usuario es ",
+				"sparrow", person.getPassword());
+		
+		Assert.assertEquals("el nombre del usuario es ",
+				"jack", person.getNombre());
+		
+	}
+	
 }
