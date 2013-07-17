@@ -6,4 +6,8 @@ public class DaoFactory {
 		return PersonaDaoJdbcImpl.getInstance();
 	}
 	
+	public static TweetDao getTweetDao(){
+		return TweetDaoJdbcImpl.getInstance();
+	}
+	
 }
