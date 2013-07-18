@@ -16,8 +16,8 @@ public class PersonaDaoTests {
 
 	PersonaDao dao = DaoFactory.getPersonaDao();
 
-	Persona cosmeFulanito;
-	Persona chuckNorris;
+	Persona MatiasCabanias;
+	Persona LucasQuevedo;
 
 	@Before
 	public void setUp() throws PersistenceException {
@@ -27,12 +27,12 @@ public class PersonaDaoTests {
 		}
 
 		// se inserta a Cosme Fulanito
-		cosmeFulanito = buildPersona(1, "Cosme", "Fulanito", 42, "hola");
-		dao.insert(cosmeFulanito);
+		MatiasCabanias = buildPersona(1, "Matias", "Cabanias", 26, "576534");
+		dao.insert(MatiasCabanias);
 
 		// Chuck Norris decide insertarse
-		chuckNorris = buildPersona(2, "Chuck", "Norris", 72, "hola2");
-		dao.insert(chuckNorris);
+		LucasQuevedo = buildPersona(2, "Lucas", "Quevedo", 20, "hola2");
+		dao.insert(LucasQuevedo);
 	}
 
 	private Persona buildPersona(Integer id, String nombre, String apellido, Integer edad, String password) {
@@ -49,19 +49,19 @@ public class PersonaDaoTests {
 	@Test
 	public void testQueSePuedeBuscarUnaPersona() throws PersistenceException {
 
-		Persona personaEncontrada = dao.findById(cosmeFulanito.getId());
+		Persona personaEncontrada = dao.findById(MatiasCabanias.getId());
 
 		assertNotNull("la persona con id 1 debe existir", personaEncontrada);
-		assertEquals("la persona 1 tiene nombre: Cosme", "Cosme", personaEncontrada.getNombre());
-		assertEquals("la persona 1 tiene apellido: Fulanito", "Fulanito", personaEncontrada.getApellido());
-		assertEquals("la persona 1 tiene edad: 42", 42, (int)personaEncontrada.getEdad());
+		assertEquals("la persona 1 tiene nombre: Cosme", "Matias", personaEncontrada.getNombre());
+		assertEquals("la persona 1 tiene apellido: Fulanito", "Cabanias", personaEncontrada.getApellido());
+		assertEquals("la persona 1 tiene edad: 26", 26, (int)personaEncontrada.getEdad());
 
 	}
 	
 	@Test
 	public void testApellido() throws PersistenceException{
-		Persona login = dao.authenticate("Cosme", "hola");
-		assertEquals("login hola", "hola", login.getPassword());
+		Persona login = dao.authenticate("Matias", "576534");
+		assertEquals("login 576534", "576534", login.getPassword());
 		
 	}
 	

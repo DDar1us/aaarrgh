@@ -34,13 +34,14 @@ public class LoginController {
 			HttpSession session = request.getSession(true);
 
 		     //Obtenemos los obejtos a guardar en session
-		     session.setAttribute("nombre", this.usuario.getNombre());
+			session.setAttribute("id", Integer.toString(this.usuario.getId()));
+			session.setAttribute("nombre", this.usuario.getNombre());
 		     session.setAttribute("apellido", this.usuario.getApellido());
 		     session.setAttribute("edad", Integer.toString(this.usuario.getEdad()));
 			
 			dispatch = new ModelAndView("welcome", "message", "Bienvenido, @" + username); 
 		} else {
-			dispatch = new ModelAndView("../../index", "message", "Ingreso incorrecto");
+			dispatch = new ModelAndView("index", "message", "Ingreso incorrecto");
 		}
 
 		return dispatch;

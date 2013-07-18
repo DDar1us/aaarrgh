@@ -1,3 +1,9 @@
+<%@page import="java.util.List"%>
+<%@page import="aaarrgh.model.Tweet"%>
+<%@page import="aaarrgh.model.Persona"%>
+<%@page import="aaarrgh.persistence.PersonaDao"%>
+<%@page import="aaarrgh.persistence.DaoFactory"%>
+<%@page import="java.util.Iterator"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,6 +14,8 @@
 	String nombre = (String) session.getAttribute("nombre");//Recoge la session
    String apellido = (String) session.getAttribute("apellido");//Recoge la session
    String edad = (String) session.getAttribute("edad");//Recoge la session
+   
+   PersonaDao dao = DaoFactory.getPersonaDao();
 
 %>
 
@@ -30,13 +38,14 @@ $(document).ready(function(){
 });
 </script>
 
+
 </head>
 
 <body>
 <div class="menuTodo">
 <div class="menu">
 <ul>
-<li><a href="../index">Inicio</a></li>
+<li><a href="../index.jsp">Inicio</a></li>
 <li><a href="privacidad">Nosotros</a></li>
 <li><a href="privacidad">Privacidad</a></li>
 <li><a href="privacidad">Soporte</a></li>
@@ -49,13 +58,15 @@ $(document).ready(function(){
 </div>
 <div class="container">
 <div class="contentEspecial">
+
 <div class="columnaDerecha">
 	<a href="../mi_perfil.jsp" class="miPerfil">Mi Perfil</a>
 	<a href="#" class="miPerfil">A quien sigo</a>
 	<a href="#" class="miPerfil">Quienes me siguen</a>
 </div>
-<h2>${message}</h2> 
- 
+
+<h2>${message}</h2>  
+
 <form id="formtweets" action="../tweet/insertar.do" method="post">
 <textarea name="tweet" class="campoArea" id="escribirTweet" placeholder="Que hay de nuevo marinero?">
 </textarea>
@@ -63,6 +74,29 @@ $(document).ready(function(){
 <input type="submit" id="enviar" value="Enviar">
 </form>  
 
+
+ 
+<div class="clear"></div>
+<h1>Tweets</h1>
+<ul class="listadoTweets">
+	 <% 
+    for ( Iterator iterador = ( (List<Tweet>) request.getAttribute("tweets")).listIterator(); iterador.hasNext(); ) 
+    {
+        
+    	Persona usuario = new Persona();
+    	
+    	Tweet tweets = (Tweet) iterador.next();
+    	
+    	usuario = dao.findById(tweets.getIdusuario());
+        %>
+        <li><%=tweets.getTweet()%>
+        <p>@<%=usuario.getNombre()%></p>
+        </li>
+         <%
+	}
+    %>
+</ul>
+ 
 </div>
 </div>
 <div class="footerTodo">
@@ -73,6 +107,5 @@ $(document).ready(function(){
 </div>
 </div>
 <script type="text/javascript" src="/aaarrgh/js/jquery.js"></script>
-<script type="text/javascript" src="/aaarrgh/js/script.js"></script>
 </body>
 </html>

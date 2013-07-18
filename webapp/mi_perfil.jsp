@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -17,31 +18,18 @@
 <title>Aaarrgh Twitter 2.0</title>
 <link href="/aaarrgh/js/estilo.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	$("#perfil").click(
-			function(){
-				
-				$(".contentEspecial").empty();
-				$(".contentEspecial").html("<h2>Nombre:"+<%=nombre%>"</h2><h2>Apellido:"+<%=apellido %>"</h2><h2>Edad:"+<%=edad %>"</h2>");
-				
-			});
-});
-</script>
-
 </head>
 
 <body>
 <div class="menuTodo">
 <div class="menu">
 <ul>
-<li><a href="../index">Inicio</a></li>
+<li><a href="index.jsp">Inicio</a></li>
 <li><a href="privacidad">Nosotros</a></li>
 <li><a href="privacidad">Privacidad</a></li>
 <li><a href="privacidad">Soporte</a></li>
 <li><a href="privacidad">Contacto</a></li>
-<li><a href="../logout/out.do">Cerrar Sesion</a></li>
+<li><a href="logout/out.do">Cerrar Sesion</a></li>
 </ul>
 <div class="logo"> <img src="/aaarrgh/img/web/twitter.png" width="48" height="56" alt="logo" />
 </div>
@@ -49,21 +37,21 @@ $(document).ready(function(){
 </div>
 <div class="container">
 <div class="contentEspecial">
-<div class="columnaDerecha">
-	<a href="../mi_perfil.jsp" class="miPerfil">Mi Perfil</a>
-	<a href="#" class="miPerfil">A quien sigo</a>
-	<a href="#" class="miPerfil">Quienes me siguen</a>
-</div>
-<h2>${message}</h2> 
- 
-<form id="formtweets" action="../tweet/insertar.do" method="post">
-<textarea name="tweet" class="campoArea" id="escribirTweet" placeholder="Que hay de nuevo marinero?">
-</textarea>
-<input type="text" name="idusuario" value="<%=idusuario%>" style="display: none;"/>
-<input type="submit" id="enviar" value="Enviar">
-</form>  
 
+<div class="clear"></div>
+
+<h2>@<%=nombre%></h2>
+
+<h2>Perfil</h2>
+
+<ul>
+	<li>Nombre: <%=nombre%></li>
+	<li>Apellido: <%=apellido%></li>
+	<li>Edad: <%=edad%></li>
+</ul>
+ 
 </div>
+
 </div>
 <div class="footerTodo">
 <div class="footer">
@@ -73,6 +61,5 @@ $(document).ready(function(){
 </div>
 </div>
 <script type="text/javascript" src="/aaarrgh/js/jquery.js"></script>
-<script type="text/javascript" src="/aaarrgh/js/script.js"></script>
 </body>
 </html>

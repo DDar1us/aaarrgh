@@ -14,5 +14,7 @@ public void insert(Tweet tweet) throws PersistenceException;
     public Tweet findById(Integer idtweet) throws PersistenceException;
     
     public List<Tweet> findAll() throws PersistenceException;
+    
+    public int contarTweet(Integer contarTweet) throws PersistenceException;
 	
 }

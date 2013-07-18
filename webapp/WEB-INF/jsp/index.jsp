@@ -27,7 +27,7 @@
 <div class="container">
 <div class="contentEspecial">
 <h1>Identificate Marinero</h1>    
-<form action="login/auth.do" id="ingreso">
+<form action="../login/auth.do" id="ingreso">
 <p>Marinero</p>
 <p>
   <input type="text" name="username" id="nombre" class="campoTexto" />
@@ -49,6 +49,6 @@
 <div class="derecha"> <p> Webmasters : Quevedo Lucas Ignacio y Cabañas Matias Jorge</p></div>
 </div>
 </div>
-<script type="text/javascript" src="/aaarrgh/js/estilo.css"></script>
+<script type="text/javascript" src="/aaarrgh/js/jquery.css"></script>
 </body>
 </html>

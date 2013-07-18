@@ -24,13 +24,11 @@ public class TweetDaoJdbcImpl implements TweetDao{
 
 		try {
 			tx.begin();
-			String query = "insert into tweet (idtweet, tweet, idusuario) values (?,?,?)";
+			String query = "insert into tweet (tweet, idusuario) values (?,?)";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
-			statement.setInt(1, tweet.getIdTweet());
-			statement.setString(2, tweet.getTweet());
-			statement.setInt(3, tweet.getIdusuario());
-
+			statement.setString(1, tweet.getTweet());
+			statement.setInt(2, tweet.getIdusuario());
 
 			statement.executeUpdate();
 
@@ -135,6 +133,25 @@ public class TweetDaoJdbcImpl implements TweetDao{
 		retorno.setIdusuario(resultSet.getInt("idusuario"));
 
 		return retorno;
+	}
+	
+
+	@Override
+	public int contarTweet(Integer idusuario) throws PersistenceException {
+		int cont = 0;
+		try {
+			Connection c = ConnectionProvider.getInstance().getConnection();
+			String query = "select * from tweet where idusuario = ?";
+			PreparedStatement statement = c.prepareStatement(query);
+			statement.setInt(1, idusuario);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				cont++;
+			}
+		} catch (SQLException sqlException) {
+			throw new PersistenceException(sqlException);
+		}
+		return cont;
 	}
 
 }
