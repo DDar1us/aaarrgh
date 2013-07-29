@@ -25,7 +25,7 @@ public class LogoutController {
 			
 			session.invalidate();
 			
-			dispatch = new ModelAndView("index", "message", "Has cerrado Sesion");
+			dispatch = new ModelAndView("../../index", "message", "Sesión Cerrada");
 			
 			return dispatch;
 		} 

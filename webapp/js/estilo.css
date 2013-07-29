@@ -41,9 +41,24 @@ h1{margin: 0 auto 0;}
 .footerTodo{width:100%;height:auto;background:#000;margin:0;display:table;color:#FFF}.footer{margin-left:auto;margin-right:auto;width:960px;height:auto}
 .derecha,.izquierda{width:480px;float:left;font-family:'Alef';font-size:14px}
 
-@font-face{font-family:"Pirates";src:url("http://quevedolucas.com.ar/img/PiratesWriters.ttf")}
+@font-face{font-family:"Pirates";src:url("/aaarrgh/img/web/PiratesWriters.ttf")}
 @font-face{font-family:'Alef';font-style:normal;font-weight:400;src:local('Alef Regular'),local('Alef-Regular'),url(http://themes.googleusercontent.com/static/fonts/alef/v1/C8wmYJieZdfX3SNk-GwKVA.woff) format('woff')}
 
-.listadoTweets{float: left; list-style: none; margin-top:0;}
-.listadoTweets li{background: #cac2b7; color: #000; width: 500px; border-radius: 5px; padding: 5px 0 10px 5px; border-bottom: 1px solid #930; margin-bottom: 10px;}
-.listadoTweets p {margin:0; float: right; padding: 10px 5px 2px; }
+.listadoTweets{margin: 0 auto; width: 550px; height: 100%; padding: 5px 0 0 15px;}
+
+
+.tweet { background: #cac2b7; width: 500px; height: auto; border-radius: 5px; padding: 5px 0 0 5px; border-bottom: 1px solid #930; margin: 0 auto 10px;}
+.tweet p{color: #000; width: 500px; height: auto; margin: 0;}
+.usuario {margin:0; float: right; padding: 2px 5px 0; font-size: 12px;}
+.timeago {color: #66625B; margin:0; float: right; padding: 2px 0 0; font-size: 12px;}
+
+.info_usuario {width: 480px; height: auto; border-top: 1px solid #E8E3DC; margin:auto;}
+.seguir {margin:0; float: left; padding: 2px 5px 2px; font-size: 12px;}
+
+.clearfix {
+	clear: both;
+	height: 0;
+	margin: 0;
+	width: 100%;
+	overflow: hidden;
+} /*Limpiador de floats para que las cajas no salgan de contexto*/

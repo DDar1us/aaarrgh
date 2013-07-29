@@ -18,6 +18,8 @@ public class PersonaDaoTests {
 
 	Persona MatiasCabanias;
 	Persona LucasQuevedo;
+	Persona CarolinaVera;
+	Persona JoseQuintana;
 
 	@Before
 	public void setUp() throws PersistenceException {
@@ -33,6 +35,12 @@ public class PersonaDaoTests {
 		// Chuck Norris decide insertarse
 		LucasQuevedo = buildPersona(2, "Lucas", "Quevedo", 20, "hola2");
 		dao.insert(LucasQuevedo);
+		
+		CarolinaVera = buildPersona(3, "Carolina", "Vera", 20, "123");
+		dao.insert(CarolinaVera);
+		
+		JoseQuintana = buildPersona(4, "Jose", "Quinta", 25, "456");
+		dao.insert(JoseQuintana);
 	}
 
 	private Persona buildPersona(Integer id, String nombre, String apellido, Integer edad, String password) {

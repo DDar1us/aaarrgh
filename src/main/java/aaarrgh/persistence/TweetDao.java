@@ -5,7 +5,7 @@ import aaarrgh.model.Tweet;
 
 public interface TweetDao {
 
-public void insert(Tweet tweet) throws PersistenceException;
+	public void insert(Tweet tweet) throws PersistenceException;
     
     public void delete(Tweet tweet) throws PersistenceException;
     
@@ -17,4 +17,7 @@ public void insert(Tweet tweet) throws PersistenceException;
     
     public int contarTweet(Integer contarTweet) throws PersistenceException;
 	
+    public List<Tweet> findAllUser() throws PersistenceException;
+
+	public Tweet findByIdUser(Integer idusuario) throws PersistenceException;
 }

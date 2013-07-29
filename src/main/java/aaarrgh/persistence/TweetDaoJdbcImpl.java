@@ -24,11 +24,12 @@ public class TweetDaoJdbcImpl implements TweetDao{
 
 		try {
 			tx.begin();
-			String query = "insert into tweet (tweet, idusuario) values (?,?)";
+			String query = "insert into tweet (tweet, idusuario, tiempo) values (?,?,?)";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
 			statement.setString(1, tweet.getTweet());
 			statement.setInt(2, tweet.getIdusuario());
+			statement.setTimestamp(3, tweet.getNow());
 
 			statement.executeUpdate();
 
@@ -124,6 +125,28 @@ public class TweetDaoJdbcImpl implements TweetDao{
 		}
 		return tweet;
 	}
+	
+	@Override
+	public Tweet findByIdUser(Integer idusuario) throws PersistenceException {
+		if (idusuario == null) {
+			throw new IllegalArgumentException(
+					"El id del mensaje no debe ser nulo");
+		}
+		Tweet tweet = null;
+		try {
+			Connection c = ConnectionProvider.getInstance().getConnection();
+			String query = "select * from tweet where idusuario = ?";
+			PreparedStatement statement = c.prepareStatement(query);
+			statement.setInt(1, idusuario);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				tweet = convertOne(resultSet);
+			}
+		} catch (SQLException sqlException) {
+			throw new PersistenceException(sqlException);
+		}
+		return tweet;
+	}
 
 	private Tweet convertOne(ResultSet resultSet) throws SQLException {
 		Tweet retorno = new Tweet();
@@ -131,6 +154,7 @@ public class TweetDaoJdbcImpl implements TweetDao{
 		retorno.setIdTweet(resultSet.getInt("idtweet"));
 		retorno.setTweet(resultSet.getString("tweet"));
 		retorno.setIdusuario(resultSet.getInt("idusuario"));
+		retorno.setNow(resultSet.getTimestamp("tiempo"));
 
 		return retorno;
 	}
@@ -152,6 +176,23 @@ public class TweetDaoJdbcImpl implements TweetDao{
 			throw new PersistenceException(sqlException);
 		}
 		return cont;
+	}
+	
+	@Override
+	public List<Tweet> findAllUser() throws PersistenceException {
+		List<Tweet> lista = new LinkedList<Tweet>();
+		try {
+			String query = "select idtweet, tweet, idusuario, tiempo from tweet GROUP BY idusuario";
+			PreparedStatement statement = ConnectionProvider.getInstance()
+					.getConnection().prepareStatement(query);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				lista.add(convertOne(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			throw new PersistenceException(sqlException);
+		}
+		return lista;
 	}
 
 }

@@ -1,10 +1,32 @@
 $(document).ready(function(){
 	
-	$("#perfil").click(
-			function(){
-				
-				$(".contentEspecial").empty();
-				$(".contentEspecial").html("<h2>Nombre: <%=nombre%></h2><h2>Apellido: <%=apellido %></h2><h2>Edad: <%=edad %></h2>");
-				
-			});
+	jQuery("abbr.timeago").timeago();
+	
+	 $(".seguir").click(function(evento){
+	      evento.preventDefault();
+	      
+	      var current = $(this);
+	     
+//		 var idusuario = jQuery(".seguir").attr("name");
+//		 
+//		 $.ajax({
+//				  type: 'POST',
+//				  url: '/aaarrgh/seguimiento/seguir.do',
+//				  data: idusuario,
+//				  success: function(){
+//					$('.seguir').html('siguiendo');
+//				  }
+//				});
+//		 
+		 $.post("/aaarrgh/seguimiento/seguir.do",
+				  {
+				   idusuario: jQuery(current).attr("name"),
+				  }, function(response){
+					  $(current).html( response );
+				  });
+		 
+		 		
+	   });
+	
+	 	
 });

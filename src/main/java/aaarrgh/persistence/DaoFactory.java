@@ -10,4 +10,8 @@ public class DaoFactory {
 		return TweetDaoJdbcImpl.getInstance();
 	}
 	
+	public static SeguimientoDao getSeguimientoDao(){
+		return SeguimientoDaoJdbcImpl.getInstance();
+	}
+	
 }
