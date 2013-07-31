@@ -4,24 +4,6 @@ public class TweetUser {
 	private Tweet tweet;
 	private String usuario;
 	private String mensaje;
-	private Integer cantidadDeSeguidores;
-	private Integer cantidadAquienesSigo;
-	
-	public Integer getCantidadDeSeguidores() {
-		return cantidadDeSeguidores;
-	}
-
-	public void setCantidadDeSeguidores(Integer cantidadDeSeguidores) {
-		this.cantidadDeSeguidores = cantidadDeSeguidores;
-	}
-
-	public Integer getCantidadAquienesSigo() {
-		return cantidadAquienesSigo;
-	}
-
-	public void setCantidadAquienesSigo(Integer cantidadAquienesSigo) {
-		this.cantidadAquienesSigo = cantidadAquienesSigo;
-	}
 
 	public String getMensaje() {
 		return mensaje;

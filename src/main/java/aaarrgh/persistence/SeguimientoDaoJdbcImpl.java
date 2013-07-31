@@ -75,17 +75,30 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 
 	@Override
 	public void update (Sigo sigo) throws PersistenceException {
-		try {
-			String query = "update sigo set estado = ?, idsigo = ?, where idusuario = ?";
+			Transaction tx = TransactionJdbcImpl.getInstance();
+			Connection conn = tx.getConnection();
 
-			PreparedStatement statement = TransactionJdbcImpl.getInstance()
-					.getConnection().prepareStatement(query);
-			statement.setInt(3, sigo.getIdusuario());
-			statement.setInt(2, sigo.getIdsigo());
-			statement.setInt(1, sigo.getEstado());
-			statement.executeUpdate();
+			try {
+				tx.begin();
+				String query = "update sigo set estado =? where idusuario =? and idsigo=?";
+				PreparedStatement statement = TransactionJdbcImpl.getInstance()
+						.getConnection().prepareStatement(query);
+				statement.setInt(1, sigo.getEstado());
+				statement.setInt(2, sigo.getIdusuario());
+				statement.setInt(3, sigo.getIdsigo());
+
+				statement.executeUpdate();
+
+				tx.commit();
+
 		} catch (SQLException sqlException) {
 			throw new PersistenceException(sqlException);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException sqlException) {
+				throw new PersistenceException(sqlException);
+			}
 		}
 	}
 
@@ -143,7 +156,7 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 		int cont = 0;
 		try {
 			Connection c = ConnectionProvider.getInstance().getConnection();
-			String query = "select * from sigo where idusuario = ?";
+			String query = "select * from sigo where idusuario = ? and estado = 1";
 			PreparedStatement statement = c.prepareStatement(query);
 			statement.setInt(1, idusuario);
 			ResultSet resultSet = statement.executeQuery();
@@ -183,11 +196,12 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 
 		try {
 			tx.begin();
-			String query = "insert into meSiguen (idusuario, idmeSiguen) values (?,?)";
+			String query = "insert into meSiguen (idusuario, idmeSiguen, estado) values (?,?,?)";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
 			statement.setInt(1, meSiguen.getIdusuario());
 			statement.setInt(2, meSiguen.getIdMeSiguen());
+			statement.setInt(3, meSiguen.getEstado());
 
 			statement.executeUpdate();
 
@@ -212,9 +226,10 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 		try {
 			tx.begin();
 
-			String query = "delete from meSiguen where idusuario = ?";
+			String query = "delete from meSiguen where idusuario = ? and idmeSiguen= ?";
 			PreparedStatement statement = conn.prepareStatement(query);
 			statement.setInt(1, meSiguen.getIdusuario());
+			statement.setInt(2, meSiguen.getIdMeSiguen());
 			statement.executeUpdate();
 
 			tx.commit();
@@ -232,16 +247,30 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 
 	@Override
 	public void update (MeSiguen meSiguen) throws PersistenceException {
-		try {
-			String query = "update meSiguen idmeSiguen = ?, where idusuario = ?";
+		Transaction tx = TransactionJdbcImpl.getInstance();
+		Connection conn = tx.getConnection();
 
+		try {
+			tx.begin();
+			String query = "update meSiguen set estado =? where idusuario =? and idmeSiguen=?";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
+			statement.setInt(1, meSiguen.getEstado());
 			statement.setInt(2, meSiguen.getIdusuario());
-			statement.setInt(1, meSiguen.getIdMeSiguen());
+			statement.setInt(3, meSiguen.getIdMeSiguen());
+
 			statement.executeUpdate();
+
+			tx.commit();
+
 		} catch (SQLException sqlException) {
 			throw new PersistenceException(sqlException);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException sqlException) {
+				throw new PersistenceException(sqlException);
+			}
 		}
 	}
 
@@ -289,6 +318,7 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 
 		retorno.setIdusuario(resultSet.getInt("idusuario"));
 		retorno.setIdMeSiguen(resultSet.getInt("idMeSiguen"));
+		retorno.setEstado(resultSet.getInt("estado"));
 
 		return retorno;
 	}
@@ -299,7 +329,7 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 		int cont = 0;
 		try {
 			Connection c = ConnectionProvider.getInstance().getConnection();
-			String query = "select * from MeSiguen where idusuario = ?";
+			String query = "select * from MeSiguen where idusuario = ? and estado = 1";
 			PreparedStatement statement = c.prepareStatement(query);
 			statement.setInt(1, idusuario);
 			ResultSet resultSet = statement.executeQuery();
@@ -313,12 +343,13 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 	}
 	
 	@Override
-	public List<MeSiguen> findAllUserMeSiguen() throws PersistenceException {
+	public List<MeSiguen> findAllUserMeSiguen(Integer idusuario) throws PersistenceException {
 		List<MeSiguen> lista = new LinkedList<MeSiguen>();
 		try {
-			String query = "select idusuario, idmeSiguen from sigo GROUP BY idusuario";
-			PreparedStatement statement = ConnectionProvider.getInstance()
-					.getConnection().prepareStatement(query);
+			Connection c = ConnectionProvider.getInstance().getConnection();
+			String query = "select * from meSiguen where idusuario = ?";
+			PreparedStatement statement = c.prepareStatement(query);
+			statement.setInt(1, idusuario);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				lista.add(convertOneMeSiguen(resultSet));
@@ -330,4 +361,3 @@ public class SeguimientoDaoJdbcImpl implements SeguimientoDao{
 	}
 
 }
-

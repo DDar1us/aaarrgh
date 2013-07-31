@@ -13,12 +13,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-
 	String nombre = (String) session.getAttribute("nombre");//Recoge la session	
 	String cantidadSeguidores = (String) session.getAttribute("cantidadSeguidores");//Recoge la session
 	String cantidadQueSigo = (String) session.getAttribute("cantidadQueSigo");//Recoge la session
-	
+
 %>
+
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
@@ -51,9 +52,24 @@
 <div class="contentEspecial">
 <div class="columnaDerecha">
 	<a href="../mi_perfil.jsp" class="miPerfil">Mi Perfil</a>
-	<a href="#" class="miPerfil">A quien sigo <%=cantidadQueSigo %></a>
-	<a href="#" class="miPerfil">Quienes me siguen <%=cantidadSeguidores %></a>
-	<a href="/aaarrgh/marineros/tweets.do" class="miPerfil">Marineros</a>
+	
+	<% 
+		if(Integer.parseInt(cantidadQueSigo) > 0){%>
+			<a href="/aaarrgh/seguimiento/aquiensigo.do" class="miPerfil">A quien sigo <%=cantidadQueSigo%></a>
+		<%}else{%>
+			<a class="miPerfil">A quien sigo <%=cantidadQueSigo%></a>
+		<%}
+	%>
+	
+	<% 
+		if(Integer.parseInt(cantidadSeguidores) > 0){%>
+			<a href="/aaarrgh/seguimiento/quinesmesiguen.do" class="miPerfil">Quienes me siguen <%=cantidadSeguidores%></a>
+		<%}else{%>
+			<a class="miPerfil">Quienes me Siguen <%=cantidadSeguidores%></a>
+		<%}
+	%>
+	
+	<a href="/aaarrgh/seguimiento/marineros.do" class="miPerfil">Marineros</a>
 </div>
 
 <h2>Bienvenido, @<%=nombre%></h2> 
@@ -85,7 +101,6 @@
 	        <div class="info_usuario">
 	        <abbr class="timeago" title="<%=my8601formattedDate%>"></abbr>
 	        <a class="usuario">@<%=tweets.getUsuario()%></a>
-	        <a class="seguir" href="javascript:void(0)" name="<%=tweets.getTweet().getIdusuario()%>" ><%=tweets.getMensaje()%></a>
 	        </div>
 	        <div class="clearfix">&nbsp;</div> <!--Limpiador de floats-->
         </div>

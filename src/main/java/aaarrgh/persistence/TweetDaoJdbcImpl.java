@@ -194,5 +194,23 @@ public class TweetDaoJdbcImpl implements TweetDao{
 		}
 		return lista;
 	}
+	
+	@Override
+	public List<Tweet> findAllUserId(Integer idusuario) throws PersistenceException {
+		List<Tweet> lista = new LinkedList<Tweet>();
+		try {
+			Connection c = ConnectionProvider.getInstance().getConnection();
+			String query = "select * from tweet where idusuario = ?";
+			PreparedStatement statement = c.prepareStatement(query);
+			statement.setInt(1, idusuario);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				lista.add(convertOne(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			throw new PersistenceException(sqlException);
+		}
+		return lista;
+	}
 
 }

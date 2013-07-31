@@ -14,6 +14,8 @@
 <%
 	String cantidadSeguidores = (String) session.getAttribute("cantidadSeguidores");//Recoge la session
 	String cantidadQueSigo = (String) session.getAttribute("cantidadQueSigo");//Recoge la session
+	String cambio = (String) session.getAttribute("bandera");//Recoge la session
+	String titulo = (String) session.getAttribute("titulo");//Recoge la session
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -47,8 +49,29 @@
 
 <div class="columnaDerecha">
 	<a href="../mi_perfil.jsp" class="miPerfil">Mi Perfil</a>
-	<a href="#" class="miPerfil">A quien sigo <%=cantidadQueSigo%></a>
-	<a href="#" class="miPerfil">Quienes me siguen <%=cantidadSeguidores%></a>
+	<% 
+		if(Integer.parseInt(cantidadQueSigo) > 0){%>
+			<a href="/aaarrgh/seguimiento/aquiensigo.do" class="miPerfil">A quien sigo <%=cantidadQueSigo%></a>
+		<%}else{%>
+			<a class="miPerfil">A quien sigo <%=cantidadQueSigo%></a>
+		<%}
+	%>
+	
+	<% 
+		if(Integer.parseInt(cantidadSeguidores) > 0){%>
+			<a href="/aaarrgh/seguimiento/quinesmesiguen.do" class="miPerfil">Quienes me siguen <%=cantidadSeguidores%></a>
+		<%}else{%>
+			<a class="miPerfil">Quienes me Siguen <%=cantidadSeguidores%></a>
+		<%}
+	%>
+	
+	<% 
+		if(Integer.parseInt(cambio) != 0){%>
+			<a href="/aaarrgh/seguimiento/marineros.do" class="miPerfil">Marineros</a>
+		<%}else{%>
+			<a href="/aaarrgh/seguimiento/marineros.do" class="miPerfil" style="display:none">Marineros</a>
+		<%}
+	%>
 </div>
 
 <h2>${message}</h2> 
@@ -59,7 +82,7 @@
 <input type="submit" id="enviar" value="Enviar">
 </form> 
 
-<h2>Marineros</h2>  
+<h2><%=titulo%></h2>  
  
 <div class="clear"></div>
 <div class="listadoTweets">
@@ -81,13 +104,37 @@
 	        <div class="info_usuario">
 	        <abbr class="timeago" title="<%=my8601formattedDate%>"></abbr>
 	        <a class="usuario">@<%=tweets.getUsuario()%></a>
-	        <a class="seguir" href="javascript:void(0)" name="<%=tweets.getTweet().getIdusuario()%>" ><%=tweets.getMensaje()%></a>
+	        
+	        <%
+		        if(tweets.getMensaje() == "Seguir"){%>
+		    		<a class="seguir" href="javascript: void(0)" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a>
+		    	<%}else{
+		    		if(tweets.getMensaje() == "siguiendo.."){%>
+		    			<a class="seguir" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a>
+		    		<%}else{
+		    			if(tweets.getMensaje() == "Dejar de Seguir"){%>
+		    				<a class="dejarDeseguir" href="javascript: void(0)" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a>
+		    			<%}else{%>
+		    				<a class="seguir volverAseguir" href="javascript: void(0)" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a>
+		    			<%}
+		    		}
+	    		
+	    		}
+	    	%>
+    			<%-- <c:choose>
+					<c:when test="${tweets.getMensaje eq 'Seguir'}"> <a class="seguir" href="javascript: seguir()" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a> </c:when>
+					<c:when test="${tweets.getMensaje eq 'siguiendo..'}"><a class="seguir" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a></c:when>
+					<c:when test="${tweets.getMensaje eq 'Dejar de Seguir'}"><a class="seguir" href="javascript: dejarDeSeguir()" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a></c:when>
+					<c:otherwise><a class="seguir" href="javascript: volverASeguir()" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a></c:otherwise>
+				</c:choose> --%>
+    			
 	        </div>
 	        <div class="clearfix">&nbsp;</div> <!--Limpiador de floats-->
         </div>
          <% 
 	}
     %>
+
 </div>
  
  <div class="clearfix">&nbsp;</div> <!--Limpiador de floats-->

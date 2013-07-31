@@ -1,6 +1,7 @@
 package aaarrgh.controllers;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import aaarrgh.model.Tweet;
+import aaarrgh.model.TweetUser;
 import aaarrgh.persistence.DaoFactory;
 import aaarrgh.persistence.PersistenceException;
 import aaarrgh.persistence.TweetDao;
+import aaarrgh.services.SeguimientoService;
 import aaarrgh.services.TweetService;
 
 @Controller
@@ -22,6 +25,7 @@ public class TweetController {
 	TweetService TweetService = new TweetService();
 	Tweet tweet_insertar = new Tweet();
 	TweetDao dao = DaoFactory.getTweetDao();
+	SeguimientoService SeguimientoService = new SeguimientoService();
 	
 	@RequestMapping("/insertar")
 	
@@ -41,9 +45,11 @@ public class TweetController {
 			
 			TweetService.postear(tweet_insertar);
 			
-			List<Tweet> todosLosTweets = dao.findAll();
+			List<TweetUser> tweetUser = new LinkedList<TweetUser>();
 			
-			dispatch = new ModelAndView("welcome_tweet", "tweets", todosLosTweets);
+			tweetUser = SeguimientoService.finAllUserId(idusuario);
+			
+			dispatch = new ModelAndView("welcome", "tweetUser", tweetUser);
 			
 		}
 		

@@ -20,4 +20,6 @@ public interface TweetDao {
     public List<Tweet> findAllUser() throws PersistenceException;
 
 	public Tweet findByIdUser(Integer idusuario) throws PersistenceException;
+
+	public List<Tweet> findAllUserId(Integer idusuario) throws PersistenceException;
 }

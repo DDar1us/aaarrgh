@@ -16,12 +16,14 @@ import aaarrgh.model.Persona;
 import aaarrgh.model.TweetUser;
 import aaarrgh.persistence.PersistenceException;
 import aaarrgh.services.LoginService;
+import aaarrgh.services.SeguimientoService;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
 	LoginService loginService = new LoginService();
+	SeguimientoService seguimientoService = new SeguimientoService();
 	Persona usuario = new Persona();
 
 	@RequestMapping("/auth")
@@ -44,10 +46,10 @@ public class LoginController {
 		     session.setAttribute("apellido", this.usuario.getApellido());
 		     session.setAttribute("edad", Integer.toString(this.usuario.getEdad()));
 		     
-		     session.setAttribute("cantidadSeguidores", Integer.toString(loginService.meSiguen(this.usuario.getId())));
-		     session.setAttribute("cantidadQueSigo", Integer.toString(loginService.sigo(this.usuario.getId())));
+		     session.setAttribute("cantidadSeguidores", Integer.toString(seguimientoService.contarSeguidores(this.usuario.getId())));
+		     session.setAttribute("cantidadQueSigo", Integer.toString(seguimientoService.contarSigo(this.usuario.getId())));
 		     
-		     tweetUser = loginService.finAllUser(Integer.toString(this.usuario.getId()));
+		     tweetUser = seguimientoService.finAllUserId(Integer.toString(this.usuario.getId()));
 		     
 			dispatch = new ModelAndView("welcome", "tweetUser", tweetUser); 
 		} else {
@@ -57,5 +59,25 @@ public class LoginController {
 		return dispatch;
 
 	}
+	
+	@RequestMapping("/sesion")
+	public ModelAndView mantenerSesion(HttpServletRequest request) throws PersistenceException {
+		
+		String idusuario = (String) request.getSession().getAttribute("id");
+		
+		ModelAndView dispatch = null;
+		List<TweetUser> tweetUser = new LinkedList<TweetUser>();
+		
+		if(idusuario != null){
+			
+			tweetUser = seguimientoService.finAllUserId(idusuario);
+			dispatch = new ModelAndView("welcome", "tweetUser", tweetUser);  
+		} else {
+			dispatch = new ModelAndView("../../index", "message", "Sesión Cerrada");
+		}
+		return dispatch;
+
+	}
+
 
 }

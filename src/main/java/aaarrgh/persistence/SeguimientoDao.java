@@ -22,17 +22,17 @@ public interface SeguimientoDao {
     public int contarSigo(Integer contarSigo) throws PersistenceException;
     
     
-    public void insert(MeSiguen meSigue) throws PersistenceException;
+    public void insert(MeSiguen meSiguen) throws PersistenceException;
     
-    public void delete(MeSiguen meSigue) throws PersistenceException;
+    public void delete(MeSiguen meSiguen) throws PersistenceException;
     
-    public void update(MeSiguen meSigue) throws PersistenceException;
+    public void update(MeSiguen meSiguen) throws PersistenceException;
     
     public MeSiguen findByIdMeSiguen(Integer idusuario) throws PersistenceException;
     
     public List<MeSiguen> findAllMeSiguen() throws PersistenceException;
 	
-    public List<MeSiguen> findAllUserMeSiguen() throws PersistenceException;
+    public List<MeSiguen> findAllUserMeSiguen(Integer idusuario) throws PersistenceException;
     
     public int contarMeSiguen(Integer contarMeSiguen) throws PersistenceException;
 
