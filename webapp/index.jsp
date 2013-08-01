@@ -23,7 +23,7 @@
 <div class="menuTodo">
 <div class="menu">
 <ul>
-<li><a href="index.jsp">Inicio</a></li>
+<li><a href="/aaarrgh/index.jsp">Inicio</a></li>
 <li><a href="privacidad">Nosotros</a></li>
 <li><a href="privacidad">Privacidad</a></li>
 <li><a href="privacidad">Soporte</a></li>
@@ -33,10 +33,12 @@
 </div>
 </div>
 </div>
+
 <div class="container">
-<div class="contentEspecial">
+<div class="mensaje"><h1>${message}</h1></div>
+<div class="inicio">
 <h1>Identificate Marinero</h1>    
-<form action="/aaarrgh/login/auth.do" id="ingreso" method="post">
+<form id="ingreso" action="/aaarrgh/login/auth.do" method="post">
 <p>Marinero</p>
 <p>
   <input type="text" name="username" id="nombre" class="campoTexto" />
@@ -46,11 +48,38 @@
   <input type="password" name="password" id="nombre" class="campoTexto" />
 </p>
 <p><input type="submit" class="campoEnviar" value="" /><input type="reset" class="campoBorrar" value="" /></p>
+</form> 
+</div>
+<div class="registros">
+	
+	<h1>Registrate Marinero</h1> 
+	
+<form id="registro" action="/aaarrgh/registro/usuario.do" method="post">
+<p>Marinero</p>
+<p>
+  <input type="text" name="username" id="nombre" class="campoTexto" />
+</p>
+<p>Palabra Secreta</p>
+<p>
+  <input type="password" name="password" id="password" class="campoTexto" />
+</p>
 
-</form>    
-<h1>${message}</h1>
+<p>Apellido</p>
+<p>
+  <input type="text" name="apellido" id="apellido" class="campoTexto" />
+</p>
+
+<p>Edad</p>
+<p>
+  <input type="text" name="edad" id="edad" class="campoTexto" />
+</p>
+
+<p><input type="submit" class="campoEnviar" value="" /><input type="reset" class="campoBorrar" value="" /></p>
+
+</form>
 </div>
-</div>
+<div class="clear"></div>   
+</div> 
 <div class="footerTodo">
 <div class="footer">
 <div class="izquierda">

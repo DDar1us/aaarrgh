@@ -7,6 +7,7 @@
 <%@page import="aaarrgh.persistence.PersonaDao"%>
 <%@page import="aaarrgh.persistence.DaoFactory"%>
 <%@page import="java.util.Iterator"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -17,12 +18,16 @@
 	String cambio = (String) session.getAttribute("bandera");//Recoge la session
 	String titulo = (String) session.getAttribute("titulo");//Recoge la session
 	String idusuario = (String) session.getAttribute("id");//Recoge la session
+	String nombre = (String) session.getAttribute("nombre");//Recoge la session	
 %>
+
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Aaarrgh Twitter 2.0</title>
+
 <link href="/aaarrgh/js/estilo.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="/aaarrgh/js/jquery.js"></script>
@@ -46,10 +51,9 @@
 </div>
 </div>
 <div class="container">
-<div class="contentEspecial">
-
 <div class="columnaDerecha">
 	<a href="/aaarrgh/perfil/usuario.do?name=<%=idusuario%>" class="miPerfil">Mi Perfil</a>
+	
 	<% 
 		if(Integer.parseInt(cantidadQueSigo) > 0){%>
 			<a href="/aaarrgh/seguimiento/aquiensigo.do" class="miPerfil">A quien sigo <%=cantidadQueSigo%></a>
@@ -75,17 +79,17 @@
 	%>
 </div>
 
-<h2>${message}</h2> 
- 
-<form id="formtweets" action="/aaarrgh/tweet/insertar.do" method="post">
-<textarea name="tweet" class="campoArea" id="escribirTweet" placeholder="Que hay de nuevo marinero?">
-</textarea>
-<input type="submit" id="enviar" value="Enviar">
-</form> 
+<h2>Bienvenido, @<%=nombre%></h2>  
 
-<h2><%=titulo%></h2>  
- 
+ <div id="tweet">
+<form id="publicar" action="/aaarrgh/tweet/insertar.do" method="post">
+<textarea class="campoArea" id="escribirTweet" name="tweet" onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" placeholder="Que hay de nuevo marinero?"></textarea>
+<input type="text" name="caracteres" class="contador" >
 <div class="clear"></div>
+<input type="submit" value="Tweet" class="boton">
+</form>  
+
+<h3><%=titulo%></h3>
 <div class="listadoTweets">
 	 <% 
     for ( Iterator iterador = ( (List<TweetUser>) request.getAttribute("tweetUser")).listIterator(); iterador.hasNext(); ) 
@@ -103,8 +107,6 @@
     		%><div class="tweet">
 	        <p><%=tweets.getTweet()%></p>
 	        <div class="info_usuario">
-	        <abbr class="timeago" title="<%=my8601formattedDate%>"></abbr>
-	        <a class="usuario" href="/aaarrgh/perfil/usuario.do?name=<%=tweets.getIdusuario()%>">@<%=tweets.getUsuario()%></a>
 	        
 	        <%
 	       	 	if(tweets.getEstado().equals("seguir")){%>
@@ -122,32 +124,27 @@
 	    		
 	    		}
 	    	%>
-    			<%-- <c:choose>
-					<c:when test="${tweets.getMensaje eq 'Seguir'}"> <a class="seguir" href="javascript: seguir()" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a> </c:when>
-					<c:when test="${tweets.getMensaje eq 'siguiendo..'}"><a class="seguir" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a></c:when>
-					<c:when test="${tweets.getMensaje eq 'Dejar de Seguir'}"><a class="seguir" href="javascript: dejarDeSeguir()" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a></c:when>
-					<c:otherwise><a class="seguir" href="javascript: volverASeguir()" name="<%=tweets.getTweet().getIdusuario()%>"><%=tweets.getMensaje()%></a></c:otherwise>
-				</c:choose> --%>
-    			
+	        
+	        <abbr class="timeago" title="<%=my8601formattedDate%>"></abbr>
+	        <a class="usuario" href="/aaarrgh/perfil/usuario.do?name=<%=tweets.getIdusuario()%>">@<%=tweets.getUsuario()%></a>
+	        
 	        </div>
 	        <div class="clearfix">&nbsp;</div> <!--Limpiador de floats-->
         </div>
          <% 
 	}
     %>
+</div> 
+</div>
 
+<div class="clear"></div>   
 </div>
- 
- <div class="clearfix">&nbsp;</div> <!--Limpiador de floats-->
- 
-</div>
-</div>
+
 <div class="footerTodo">
 <div class="footer">
 <div class="izquierda">
 <p>© 2013 Copyright Quevedo Lucas. All Rights Reserved.</p></div>
 <div class="derecha"> <p> Webmasters : Quevedo Lucas Ignacio y Cabañas Matias Jorge</p></div>
-</div>
 </div>
 
 <script type="text/javascript" src="/aaarrgh/js/jquery.timeago.js"></script>

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import aaarrgh.model.MeSiguen;
-import aaarrgh.model.Sigo;
+import aaarrgh.model.Seguimiento;
 import aaarrgh.model.TweetUser;
 import aaarrgh.persistence.PersistenceException;
 import aaarrgh.services.SeguimientoService;
@@ -24,13 +23,14 @@ public class SeguimientoController {
 
 	SeguimientoService SeguimientoService = new SeguimientoService();
 	
+	
+	
 	@RequestMapping("/seguir")
 	
 	public ModelAndView seguir(HttpServletRequest request, @RequestParam("idusuario") String idSigo
 			) throws PersistenceException{
 		
-		Sigo sigo = new Sigo();
-		MeSiguen meSiguen = new MeSiguen();
+		Seguimiento seguimiento = new Seguimiento();
 		String mensaje;
 		
 		ModelAndView dispatch = null;
@@ -42,33 +42,24 @@ public class SeguimientoController {
 		session.setAttribute("cantidadSeguidores", Integer.toString(SeguimientoService.contarSeguidores(Integer.parseInt(idusuario))));
 	    session.setAttribute("cantidadQueSigo", Integer.toString(SeguimientoService.contarSigo(Integer.parseInt(idusuario))));
 		
-		sigo.setEstado("dejar de seguir");
-		sigo.setIdusuario(Integer.parseInt(idusuario));
-		sigo.setIdsigo(Integer.parseInt(idSigo));
-		
-		SeguimientoService.sigo(sigo);
-		
 		if(Integer.parseInt(bandera) == 0 || Integer.parseInt(bandera) == 1){
-			meSiguen.setEstado("seguir");
-			meSiguen.setIdusuario(Integer.parseInt(idSigo));
-			meSiguen.setIdMeSiguen(Integer.parseInt(idusuario));
 			
-			SeguimientoService.meSiguen(meSiguen);
+			seguimiento.setEstadoSeguidor("dejar de seguir");
+			seguimiento.setEstadoSeguido("seguir");
+			seguimiento.setIdSeguidor(Integer.parseInt(idusuario));
+			seguimiento.setIdSeguido(Integer.parseInt(idSigo));
+			
+			SeguimientoService.seguimiento(seguimiento);
 			
 			mensaje = "dejar de seguir";
 			
 		}else{
-			meSiguen.setEstado("siguiendo..");
-			meSiguen.setIdusuario(Integer.parseInt(idusuario));
-			meSiguen.setIdMeSiguen(Integer.parseInt(idSigo));
+			seguimiento.setEstadoSeguidor("dejar de seguir");
+			seguimiento.setEstadoSeguido("siguiendo..");
+			seguimiento.setIdSeguidor(Integer.parseInt(idusuario));
+			seguimiento.setIdSeguido(Integer.parseInt(idSigo));
 			
-			SeguimientoService.actualizarMeSiguen(meSiguen);
-			
-			meSiguen.setEstado("siguiendo..");
-			meSiguen.setIdusuario(Integer.parseInt(idSigo));
-			meSiguen.setIdMeSiguen(Integer.parseInt(idusuario));
-			
-			SeguimientoService.meSiguen(meSiguen);
+			SeguimientoService.seguimiento(seguimiento);
 			
 			mensaje = "siguiendo..";
 			}
@@ -154,30 +145,21 @@ public ModelAndView finAllUser(HttpServletRequest request) throws PersistenceExc
 public ModelAndView dejarDeSeguir(HttpServletRequest request, @RequestParam("idusuario") String idSigo
 		) throws PersistenceException{
 	
-	Sigo sigo = new Sigo();
-	MeSiguen meSiguen = new MeSiguen();
+	Seguimiento seguimiento = new Seguimiento();
 	
 	ModelAndView dispatch = null;
 	
 	String idusuario = (String) request.getSession().getAttribute("id");
 	
-	sigo.setEstado("volver a seguir");
-	sigo.setIdusuario(Integer.parseInt(idusuario));
-	sigo.setIdsigo(Integer.parseInt(idSigo));
+	HttpSession session = request.getSession();
+	session.setAttribute("cantidadSeguidores", Integer.toString(SeguimientoService.contarSeguidores(Integer.parseInt(idusuario))));
+    session.setAttribute("cantidadQueSigo", Integer.toString(SeguimientoService.contarSigo(Integer.parseInt(idusuario))));
 	
-	SeguimientoService.actualizarSigo(sigo);
+	seguimiento.setEstadoSeguidor("volver a seguir");
+	seguimiento.setIdSeguidor(Integer.parseInt(idusuario));
+	seguimiento.setIdSeguido(Integer.parseInt(idSigo));
 	
-	meSiguen.setEstado("seguir");
-	meSiguen.setIdusuario(Integer.parseInt(idusuario));
-	meSiguen.setIdMeSiguen(Integer.parseInt(idSigo));
-		
-	SeguimientoService.actualizarMeSiguen(meSiguen);
-	
-	meSiguen.setEstado("siguiendo..");
-	meSiguen.setIdusuario(Integer.parseInt(idSigo));
-	meSiguen.setIdMeSiguen(Integer.parseInt(idusuario));
-	
-	SeguimientoService.meSiguen(meSiguen);
+	SeguimientoService.actualizarSigo(seguimiento);
 		
 	String mensaje = "volver a seguir";
 	
@@ -191,34 +173,42 @@ public ModelAndView dejarDeSeguir(HttpServletRequest request, @RequestParam("idu
 public ModelAndView volveraseguir(HttpServletRequest request, @RequestParam("idusuario") String idSigo
 		) throws PersistenceException{
 	
-	Sigo sigo = new Sigo();
-	MeSiguen meSiguen = new MeSiguen();
+	Seguimiento seguimiento = new Seguimiento();
 	
 	ModelAndView dispatch = null;
 	
 	String idusuario = (String) request.getSession().getAttribute("id");
 	
-	sigo.setEstado("dejar de seguir");
-	sigo.setIdusuario(Integer.parseInt(idusuario));
-	sigo.setIdsigo(Integer.parseInt(idSigo));
+	HttpSession session = request.getSession();
+	session.setAttribute("cantidadSeguidores", Integer.toString(SeguimientoService.contarSeguidores(Integer.parseInt(idusuario))));
+    session.setAttribute("cantidadQueSigo", Integer.toString(SeguimientoService.contarSigo(Integer.parseInt(idusuario))));
 	
-	SeguimientoService.actualizarSigo(sigo);
+	seguimiento.setEstadoSeguidor("dejar de seguir");
+	seguimiento.setIdSeguidor(Integer.parseInt(idusuario));
+	seguimiento.setIdSeguido(Integer.parseInt(idSigo));
 	
-	meSiguen.setEstado("siguiendo..");
-	meSiguen.setIdusuario(Integer.parseInt(idusuario));
-	meSiguen.setIdMeSiguen(Integer.parseInt(idSigo));
+	SeguimientoService.actualizarSigo(seguimiento);
 		
-	SeguimientoService.actualizarMeSiguen(meSiguen);
-	
-	meSiguen.setEstado("siguiendo..");
-	meSiguen.setIdusuario(Integer.parseInt(idSigo));
-	meSiguen.setIdMeSiguen(Integer.parseInt(idusuario));
-	
-	SeguimientoService.meSiguen(meSiguen);
-		
-	String mensaje = "volver a seguir";
+	String mensaje = "dejar de seguir";
 	
 	dispatch = new ModelAndView("seguimiento", "mensaje", mensaje);
+	
+	return dispatch;
+}
+
+@RequestMapping("/contador")
+
+public ModelAndView actualizarContador(HttpServletRequest request) throws PersistenceException{
+	
+	ModelAndView dispatch = null;
+	
+	String idusuario = (String) request.getSession().getAttribute("id");
+	
+	HttpSession session = request.getSession();
+	session.setAttribute("cantidadSeguidores", Integer.toString(SeguimientoService.contarSeguidores(Integer.parseInt(idusuario))));
+    session.setAttribute("cantidadQueSigo", Integer.toString(SeguimientoService.contarSigo(Integer.parseInt(idusuario))));
+	
+	dispatch = new ModelAndView("actualizar_contador", "mensaje", "actualizado");
 	
 	return dispatch;
 }

@@ -25,14 +25,13 @@ public class PersonaDaoJdbcImpl implements PersonaDao {
 
 		try {
 			tx.begin();
-			String query = "insert into persona (id, nombre, apellido, edad, password) values (?, ?, ?, ?, ?)";
+			String query = "insert into persona (nombre, apellido, edad, password) values (?, ?, ?, ?)";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
-			statement.setInt(1, persona.getId());
-			statement.setString(2, persona.getNombre());
-			statement.setString(3, persona.getApellido());
-			statement.setInt(4, persona.getEdad());
-			statement.setString(5, persona.getPassword());
+			statement.setString(1, persona.getNombre());
+			statement.setString(2, persona.getApellido());
+			statement.setInt(3, persona.getEdad());
+			statement.setString(4, persona.getPassword());
 
 			statement.executeUpdate();
 

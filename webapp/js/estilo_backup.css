@@ -1,0 +1,65 @@
+@charset "utf-8";
+body{font:100%/1.4 Verdana,Arial,Helvetica,sans-serif;background-color:#42413C;margin:0;padding:0;color:#000;background:url(../img/web/body.jpg) no-repeat fixed;background-size:cover}
+
+h1{margin: 0 auto 0;}
+
+.menuTodo{width:100%;height:auto;background:#000;margin:0;display:table}
+.menu{width:960px;height:auto;margin:0 auto}
+.menu ul{display:block;width:750px;float:left}
+.menu ul li{list-style:none;display:inline-block;text-align:center}
+.menu a{margin-top:-15px;margin-bottom:-15px;display:block;width:120px;padding-top:15px;padding-bottom:15px;color:#FFF;font-size:22px;text-decoration:none;font-family:"Pirates";transition:All 0.3s ease;-webkit-transition:All 0.3s ease;-moz-transition:All 0.3s ease;-o-transition:All 0.3s ease}
+.menu a:hover{background:#00469c;box-shadow:0px 4px 5px #000;transition:All 0.3s ease;-webkit-transition:All 0.3s ease;-moz-transition:All 0.3s ease;-o-transition:All 0.3s ease}
+.logo{float:right}
+
+
+/*-------CONTENEDOR PRINCIPAL-------*/
+.container{width:960px;height:auto;margin:250px auto}
+.contentEspecial{width:600px;height:640px;background:url(../img/web/papiro.png) no-repeat center top;border-radius:2px;margin-left:auto;margin-right:auto;padding-left:5px;}
+.contentEspecial p{color:#000;font-family:'Alef',sans-serif;font-size:18px;font-stretch:ultra-condensed}
+.contentEspecial h1{font-family:"Pirates";color:#000;font-size:36px;text-align:center}
+.contentEspecial h2{font-weight: normal; font-size: 30px; margin: 0 0 0 30px; font-family:"Pirates";}
+
+.columnaDerecha{float: right; width: 120px; height: auto; margin: 15px 50px 0 0; text-align: right;}
+.columnaDerecha a{text-decoration: none; color: #000; font-style:italic;font-family:"Pirates"; display: block; width:100% ; max-width: 150px; height: 30px; background: #cac2b7; padding: 5px 10px 0 0; border-radius: 5px; margin: 0 0 10px 0; text-align: center; -webkit-transition:All 0.3s ease;-moz-transition:All 0.3s ease;-o-transition:All 0.3s ease;}
+
+.columnaDerecha a:hover{text-transform: capitalize; margin: 0 0 40px 0; -webkit-transition:All 0.3s ease;-moz-transition:All 0.3s ease;-o-transition:All 0.3s ease;}
+
+/*-------FORMULARIO-------*/
+#ingreso,#formtweets{width:400px;float:left; margin: 0 0 0 150px; color: #000;}
+.campoTexto{width:250px;height:30px;-webkit-transition:All 0.3s ease;-moz-transition:All 0.3s ease;-o-transition:All 0.3s ease;border:1px solid #00469c;border-radius:2px;opacity:0.6;padding-left:5px}
+.campoTexto:hover,.campoTexto:active{color:#000;opacity:1;-webkit-transition:All 0.3s ease;-moz-transition:All 0.3s ease;-o-transition:All 0.3s ease;}
+.campoEnviar{background:url(../img/web/enviar.png) center center no-repeat;width:48px;height:48px;margin-left:50px;margin-top:20px;border:none;cursor:pointer}
+.campoBorrar{background:url(../img/web/borrar.png) center center no-repeat;width:48px;height:48px;margin-left:50px;margin-top:20px;border:none;cursor:pointer}
+
+
+/*-------FORMULARIO PARTE 2-------*/
+#formtweets{margin: 0 0 0 50px; width: 350px;}
+#formtweets textarea{width: 300px; height: 80px; margin: 20px 0 0 0;}
+
+
+/*-------Footer-------*/
+.footerTodo{width:100%;height:auto;background:#000;margin:0;display:table;color:#FFF}.footer{margin-left:auto;margin-right:auto;width:960px;height:auto}
+.derecha,.izquierda{width:480px;float:left;font-family:'Alef';font-size:14px}
+
+@font-face{font-family:"Pirates";src:url("/aaarrgh/img/web/PiratesWriters.ttf")}
+@font-face{font-family:'Alef';font-style:normal;font-weight:400;src:local('Alef Regular'),local('Alef-Regular'),url(http://themes.googleusercontent.com/static/fonts/alef/v1/C8wmYJieZdfX3SNk-GwKVA.woff) format('woff')}
+
+.listadoTweets{margin: 0 auto; width: 550px; height: 100%; padding: 5px 0 0 15px;}
+
+
+.tweet { background: #cac2b7; width: 500px; height: auto; border-radius: 5px; padding: 5px 0 0 5px; border-bottom: 1px solid #930; margin: 0 auto 10px;}
+.tweet p{color: #000; width: 500px; height: auto; margin: 0;}
+.usuario {margin:0; float: right; padding: 2px 5px 0; font-size: 12px;}
+.timeago {color: #66625B; margin:0; float: right; padding: 2px 0 0; font-size: 12px;}
+
+.info_usuario {width: 480px; height: auto; border-top: 1px solid #E8E3DC; margin:auto;}
+.seguir, .dejarDeseguir, .volverAseguir {margin:0; float: left; padding: 2px 5px 2px; font-size: 12px;}
+
+
+.clearfix {
+	clear: both;
+	height: 0;
+	margin: 0;
+	width: 100%;
+	overflow: hidden;
+} /*Limpiador de floats para que las cajas no salgan de contexto*/

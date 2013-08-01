@@ -3,8 +3,7 @@ package aaarrgh.services;
 import java.util.LinkedList;
 import java.util.List;
 
-import aaarrgh.model.MeSiguen;
-import aaarrgh.model.Sigo;
+import aaarrgh.model.Seguimiento;
 import aaarrgh.model.TweetUser;
 import aaarrgh.persistence.DaoFactory;
 import aaarrgh.persistence.PersistenceException;
@@ -14,20 +13,12 @@ public class SeguimientoService {
 	
 	SeguimientoDao seguimientodao = DaoFactory.getSeguimientoDao();
 
-	public void sigo (Sigo sigo) throws PersistenceException{
-		seguimientodao.insert(sigo);
+	public void seguimiento (Seguimiento seguimiento) throws PersistenceException{
+		seguimientodao.insert(seguimiento);
 	}
 	
-	public void meSiguen (MeSiguen meSiguen) throws PersistenceException{
-		seguimientodao.insert(meSiguen);
-	}
-	
-	public void actualizarMeSiguen (MeSiguen meSiguen) throws PersistenceException{
-		seguimientodao.update(meSiguen);
-	}
-	
-	public void actualizarSigo (Sigo sigo) throws PersistenceException{
-		seguimientodao.update(sigo);
+	public void actualizarSigo (Seguimiento seguimiento) throws PersistenceException{
+		seguimientodao.update(seguimiento);
 	}
 	
 	public Integer contarSigo(Integer idusuario) throws PersistenceException {

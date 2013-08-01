@@ -1,19 +1,17 @@
 package aaarrgh.persistence;
 
 import java.util.List;
-
-import aaarrgh.model.MeSiguen;
-import aaarrgh.model.Sigo;
+import aaarrgh.model.Seguimiento;
 import aaarrgh.model.TweetUser;
 
 public interface SeguimientoDao {
 	
 	//metodos Sigo
-	public void insert(Sigo sigo) throws PersistenceException;
+	public void insert(Seguimiento seguimiento) throws PersistenceException;
     
-    public void delete(Sigo sigo) throws PersistenceException;
+    public void delete(Seguimiento seguimiento) throws PersistenceException;
     
-    public void update(Sigo sigo) throws PersistenceException;
+    public void update(Seguimiento seguimiento) throws PersistenceException;
     
 //    public Sigo findByIdSigo(Integer idusuario) throws PersistenceException;
 //    
@@ -24,12 +22,13 @@ public interface SeguimientoDao {
     public int contarSigo(Integer contarSigo) throws PersistenceException;
     
     //metodos meSiguen
-    public void insert(MeSiguen meSiguen) throws PersistenceException;
     
-    public void delete(MeSiguen meSiguen) throws PersistenceException;
-    
-    public void update(MeSiguen meSiguen) throws PersistenceException;
-    
+//    public void insert(MeSiguen meSiguen) throws PersistenceException;
+//    
+//    public void delete(MeSiguen meSiguen) throws PersistenceException;
+//    
+//    public void update(MeSiguen meSiguen) throws PersistenceException;
+//    
 //    public MeSiguen findByIdMeSiguen(Integer idusuario) throws PersistenceException;
 //    
 //    public List<MeSiguen> findAllMeSiguen() throws PersistenceException;

@@ -50,6 +50,7 @@
 </div>
 </div>
 <div class="container">
+<div class="contentEspecial">
 <div class="columnaDerecha">
 	<a href="/aaarrgh/perfil/usuario.do?name=<%=idusuario%>" class="miPerfil">Mi Perfil</a>
 	
@@ -73,15 +74,15 @@
 </div>
 
 <h2>Bienvenido, @<%=nombre%></h2> 
- <div id="tweet">
-<form id="publicar" action="/aaarrgh/tweet/insertar.do" method="post">
-<textarea class="campoArea" id="escribirTweet" name="tweet" onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" placeholder="Que hay de nuevo marinero?"></textarea>
-<input type="text" name="caracteres" class="contador" >
-<div class="clear"></div>
-<input type="submit" value="Tweet" class="boton">
-</form>  
+ 
+<form id="formtweets" action="/aaarrgh/tweet/insertar.do" method="post">
+<textarea name="tweet" class="campoArea" id="escribirTweet" placeholder="Que hay de nuevo marinero?">
+</textarea>
+<input type="submit" id="enviar" value="Enviar">
+</form> 
 
-<h3>Tweets</h3>
+<div class="clear"></div>
+<h1>Tweets</h1>
 <div class="listadoTweets">
 	 <% 
     for ( Iterator iterador = ( (List<TweetUser>) request.getAttribute("tweetUser")).listIterator(); iterador.hasNext(); ) 
@@ -116,19 +117,15 @@
     %>
 </div> 
 </div>
-
-<div class="clear"></div>   
 </div>
-
 <div class="footerTodo">
 <div class="footer">
 <div class="izquierda">
 <p>© 2013 Copyright Quevedo Lucas. All Rights Reserved.</p></div>
 <div class="derecha"> <p> Webmasters : Quevedo Lucas Ignacio y Cabañas Matias Jorge</p></div>
 </div>
-
+</div>
 <script type="text/javascript" src="/aaarrgh/js/jquery.timeago.js"></script>
 <script type="text/javascript" src="/aaarrgh/js/jquery.timeago.es.js"></script>
-
 </body>
 </html>
