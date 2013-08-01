@@ -49,7 +49,7 @@ public class LoginController {
 		     session.setAttribute("cantidadSeguidores", Integer.toString(seguimientoService.contarSeguidores(this.usuario.getId())));
 		     session.setAttribute("cantidadQueSigo", Integer.toString(seguimientoService.contarSigo(this.usuario.getId())));
 		     
-		     tweetUser = seguimientoService.finAllUserId(Integer.toString(this.usuario.getId()));
+		     tweetUser = seguimientoService.buscarTodosLosTweetDeUnUsuarioYaQuienesSigo(Integer.toString(this.usuario.getId()));
 		     
 			dispatch = new ModelAndView("welcome", "tweetUser", tweetUser); 
 		} else {
@@ -70,7 +70,7 @@ public class LoginController {
 		
 		if(idusuario != null){
 			
-			tweetUser = seguimientoService.finAllUserId(idusuario);
+			tweetUser = seguimientoService.buscarTodosLosTweetDeUnUsuarioYaQuienesSigo(idusuario);
 			dispatch = new ModelAndView("welcome", "tweetUser", tweetUser);  
 		} else {
 			dispatch = new ModelAndView("../../index", "message", "Sesión Cerrada");
@@ -78,6 +78,20 @@ public class LoginController {
 		return dispatch;
 
 	}
+	
+	@RequestMapping("/out")
+	public ModelAndView authenticate(HttpServletRequest request) throws PersistenceException, ServletException {
+
+		ModelAndView dispatch = null;
+		
+			HttpSession session = request.getSession();
+			
+			session.invalidate();
+			
+			dispatch = new ModelAndView("../../index", "message", "Sesión Cerrada");
+			
+			return dispatch;
+		} 
 
 
 }

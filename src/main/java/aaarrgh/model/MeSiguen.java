@@ -4,13 +4,13 @@ public class MeSiguen {
 	
 	private Integer idusuario;
 	private Integer idMeSiguen;
-	private Integer estado;
+	private String estado;
 	
-	public Integer getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Integer estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

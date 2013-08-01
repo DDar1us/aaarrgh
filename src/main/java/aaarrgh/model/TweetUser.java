@@ -1,19 +1,20 @@
 package aaarrgh.model;
 
+import java.util.Date;
+
 public class TweetUser {
-	private Tweet tweet;
+	
 	private String usuario;
-	private String mensaje;
-
-	public String getMensaje() {
-		return mensaje;
+	private String tweet;
+	private Date tiempo;
+	private String estado;
+	private Integer idusuario;
+	
+	public Integer getIdusuario() {
+		return idusuario;
 	}
-
-	public Tweet getTweet() {
-		return tweet;
-	}
-	public void setTweet(Tweet tweet) {
-		this.tweet = tweet;
+	public void setIdusuario(Integer idusuario) {
+		this.idusuario = idusuario;
 	}
 	public String getUsuario() {
 		return usuario;
@@ -21,10 +22,23 @@ public class TweetUser {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	
-	public void setMensaje(String mensaje2) {
-		this.mensaje = mensaje2;
-		
+	public String getTweet() {
+		return tweet;
 	}
-	
+	public void setTweet(String tweet) {
+		this.tweet = tweet;
+	}
+	public Date getTiempo() {
+		return tiempo;
+	}
+	public void setTiempo(Date tiempo) {
+		this.tiempo = tiempo;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 }

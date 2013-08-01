@@ -4,7 +4,7 @@ public class Sigo {
 
 	private Integer idusuario;
 	private Integer idsigo;
-	private Integer estado;
+	private String estado;
 	
 	public Integer getIdusuario() {
 		return idusuario;
@@ -22,11 +22,11 @@ public class Sigo {
 		this.idsigo = idsigo;
 	}
 	
-	public Integer getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 	
-	public void setEstado(Integer estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	

@@ -47,7 +47,7 @@ public class TweetController {
 			
 			List<TweetUser> tweetUser = new LinkedList<TweetUser>();
 			
-			tweetUser = SeguimientoService.finAllUserId(idusuario);
+			tweetUser = SeguimientoService.buscarTodosLosTweetDeUnUsuarioYaQuienesSigo(idusuario);
 			
 			dispatch = new ModelAndView("welcome", "tweetUser", tweetUser);
 			

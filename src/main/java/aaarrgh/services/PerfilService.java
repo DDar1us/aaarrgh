@@ -5,11 +5,12 @@ import aaarrgh.persistence.DaoFactory;
 import aaarrgh.persistence.PersistenceException;
 import aaarrgh.persistence.PersonaDao;
 
-public class LoginService {
+public class PerfilService {
 	
 	PersonaDao logindao = DaoFactory.getPersonaDao();
 	
-	public Persona authenticate(String username, String password) throws PersistenceException {
-		return logindao.authenticate(username, password);
+	public Persona perfil(Integer idusuario) throws PersistenceException {
+		return logindao.findById(idusuario);
 	}
+
 }

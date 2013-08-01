@@ -10,6 +10,8 @@ $(document).ready(function(){
 					   idusuario:jQuery(current).attr("name"),
 					  }, function(response){
 						  $(current).html( response );
+						  $(".perfil").html( response );
+						  
 					  });
 		   });
 	
@@ -22,6 +24,7 @@ $(document).ready(function(){
 					   idusuario:jQuery(current).attr("name"),
 					  }, function(response){
 						  $(current).html( response );
+						  $(".perfil").html( response );
 					  });
 		   });
 		
@@ -33,6 +36,7 @@ $(document).ready(function(){
 					   idusuario:jQuery(current).attr("name"),
 					  }, function(response){
 						  $(current).html( response );
+						  $(".perfil").html( response );
 					  });
 		   });
 	

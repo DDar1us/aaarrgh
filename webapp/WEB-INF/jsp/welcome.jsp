@@ -14,6 +14,7 @@
 
 <%
 	String nombre = (String) session.getAttribute("nombre");//Recoge la session	
+	String idusuario = (String) session.getAttribute("id");//Recoge la session
 	String cantidadSeguidores = (String) session.getAttribute("cantidadSeguidores");//Recoge la session
 	String cantidadQueSigo = (String) session.getAttribute("cantidadQueSigo");//Recoge la session
 
@@ -42,7 +43,7 @@
 <li><a href="privacidad">Privacidad</a></li>
 <li><a href="privacidad">Soporte</a></li>
 <li><a href="privacidad">Contacto</a></li>
-<li><a href="../logout/out.do">Cerrar Sesion</a></li>
+<li><a href="../login/out.do">Cerrar Sesion</a></li>
 </ul>
 <div class="logo"> <img src="/aaarrgh/img/web/twitter.png" width="48" height="56" alt="logo" />
 </div>
@@ -51,7 +52,7 @@
 <div class="container">
 <div class="contentEspecial">
 <div class="columnaDerecha">
-	<a href="../mi_perfil.jsp" class="miPerfil">Mi Perfil</a>
+	<a href="/aaarrgh/perfil/usuario.do?name=<%=idusuario%>" class="miPerfil">Mi Perfil</a>
 	
 	<% 
 		if(Integer.parseInt(cantidadQueSigo) > 0){%>
@@ -69,7 +70,7 @@
 		<%}
 	%>
 	
-	<a href="/aaarrgh/seguimiento/marineros.do" class="miPerfil">Marineros</a>
+	<a href="/aaarrgh/seguimiento/marineros.do" class="miPerfil">A quien seguir?</a>
 </div>
 
 <h2>Bienvenido, @<%=nombre%></h2> 
@@ -90,17 +91,24 @@
     	
     	Date now = new Date();
     	
-    	now.setTime(tweets.getTweet().getNow().getTime());
+    	now.setTime(tweets.getTiempo().getTime());
     	
     	DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S'Z'");
     	df.setTimeZone(TimeZone.getTimeZone("UTC"));
     	String my8601formattedDate = df.format(now);
     	
     		%><div class="tweet">
-	        <p><%=tweets.getTweet().getTweet()%></p>
+	        <p><%=tweets.getTweet()%></p>
 	        <div class="info_usuario">
 	        <abbr class="timeago" title="<%=my8601formattedDate%>"></abbr>
-	        <a class="usuario">@<%=tweets.getUsuario()%></a>
+	        <%
+	        	if(nombre.equals(tweets.getUsuario())){%>
+	        		<a class="usuario">@<%=tweets.getUsuario()%></a>
+	        	<%}else{%>
+	        		<a class="usuario" href="/aaarrgh/perfil/usuario.do?name=<%=tweets.getIdusuario()%>">@<%=tweets.getUsuario()%></a>
+	        	<%}
+	        %>
+	        
 	        </div>
 	        <div class="clearfix">&nbsp;</div> <!--Limpiador de floats-->
         </div>
